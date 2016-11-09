@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.6.1
+** Created by: Qt User Interface Compiler version 5.6.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -16,9 +16,11 @@
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
 
@@ -29,8 +31,10 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QGridLayout *gridLayout;
+    QComboBox *cameraBox;
     QPushButton *newVideoButton;
-    QComboBox *comboBox;
+    QLabel *label;
+    QSpacerItem *verticalSpacer;
     QMenuBar *menuBar;
     QStatusBar *statusBar;
 
@@ -38,7 +42,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(452, 400);
+        MainWindow->resize(313, 149);
         MainWindow->setMinimumSize(QSize(130, 77));
         MainWindow->setMaximumSize(QSize(500, 400));
         centralWidget = new QWidget(MainWindow);
@@ -47,20 +51,29 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        cameraBox = new QComboBox(centralWidget);
+        cameraBox->setObjectName(QStringLiteral("cameraBox"));
+
+        gridLayout->addWidget(cameraBox, 2, 0, 1, 1);
+
         newVideoButton = new QPushButton(centralWidget);
         newVideoButton->setObjectName(QStringLiteral("newVideoButton"));
 
-        gridLayout->addWidget(newVideoButton, 0, 0, 1, 1);
+        gridLayout->addWidget(newVideoButton, 5, 0, 1, 1);
 
-        comboBox = new QComboBox(centralWidget);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
 
-        gridLayout->addWidget(comboBox, 1, 0, 1, 1);
+        gridLayout->addWidget(label, 0, 0, 1, 1);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout->addItem(verticalSpacer, 3, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 452, 18));
+        menuBar->setGeometry(QRect(0, 0, 313, 21));
         MainWindow->setMenuBar(menuBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -75,6 +88,7 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "VideoConnector", 0));
         newVideoButton->setText(QApplication::translate("MainWindow", "Launch New Video Panel", 0));
+        label->setText(QApplication::translate("MainWindow", "Choose Camera:", 0));
     } // retranslateUi
 
 };
