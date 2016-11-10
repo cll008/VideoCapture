@@ -53,7 +53,8 @@ MainWindow::~MainWindow() {
 
 void MainWindow::newVideo(void) {
 	
-	boost::shared_ptr<VideoPanel> vp(new VideoPanel());
+	QString panelCameraName = cameraBox->currentText();
+	boost::shared_ptr<VideoPanel> vp(new VideoPanel(0, panelCameraName));
 	//VideoPanel *vp = new VideoPanel;
 	videoPanels.push_back(vp);
 	vp->show();

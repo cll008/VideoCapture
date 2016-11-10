@@ -4,11 +4,12 @@
 #include "videosettings.h"
 #include "mainwindow.h"
 
+
 #include <Objbase.h>
 #include <iostream>
 
 
-VideoPanel::VideoPanel(QWidget *parent) :
+VideoPanel::VideoPanel(QWidget *parent, QString& title) :
 	QWidget(parent),
 	ui(new Ui::videoPanel),
 	camera(0),
@@ -17,8 +18,7 @@ VideoPanel::VideoPanel(QWidget *parent) :
 {
 	ui->setupUi(this);
 	//QString panelCameraName = theWindow->selectedCameraName;
-	//this->setWindowTitle(panelCameraName);
-	QString panelCameraName = theWindow->cameraBox.currentText();
+	this->setWindowTitle(title);
 	
 	//setWindowTitle(theWindow->cameraBox.currentText());
 		

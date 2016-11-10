@@ -49,7 +49,7 @@ class VideoPanel : public QWidget
     Q_OBJECT
 
 public:
-    VideoPanel(QWidget *parent = 0);
+    VideoPanel(QWidget *parent = 0, QString& title);
     ~VideoPanel();
 
 private slots:
