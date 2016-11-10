@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-// video panel child
 #include "videopanel.h"
 
 // boost
@@ -44,6 +43,7 @@ class MainWindow : public QMainWindow {
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+	QComboBox cameraBox;
 
 private slots:    
 	// close event: used to disable closing while linked
@@ -62,6 +62,6 @@ private:
 
 };
 
-// extern MainWindow *theWindow;
+extern MainWindow *theWindow;
 
 #endif // MAINWINDOW_H

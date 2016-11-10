@@ -1,8 +1,8 @@
 
-
 #include "videopanel.h"
 #include "ui_videopanel.h"
 #include "videosettings.h"
+#include "mainwindow.h"
 
 #include <Objbase.h>
 #include <iostream>
@@ -16,12 +16,24 @@ VideoPanel::VideoPanel(QWidget *parent) :
 	mediaRecorder(0)
 {
 	ui->setupUi(this);
-	this->setWindowTitle("Change this to display camera name and change camera 0"); 
+	//QString panelCameraName = theWindow->selectedCameraName;
+	//this->setWindowTitle(panelCameraName);
+	QString panelCameraName = theWindow->cameraBox.currentText();
+	
+	//setWindowTitle(theWindow->cameraBox.currentText());
+		
+	std::cout << panelCameraName.toStdString() << std::endl;
+
+	// will print available formats to console and store them in the camera_infos vector:
+
+	//WmfEnumerateCameras wmfNewCamera_obj;
+	//std::vector<wmfCameraInfo> camera_infos;
+	//wmfNewCamera_obj.getCameraInfo(panelCameraName.toStdString(), camera_infos);
 
 	// signals and slots here
 	QObject::connect(ui->recordButton, SIGNAL(clicked()), this, SLOT(record()));
 	QObject::connect(ui->recordingSettingsButton, SIGNAL(clicked()), this, SLOT(configureVideoSettings()));
-	
+
 }
 
 void VideoPanel::closeEvent(QCloseEvent *ev) {
@@ -42,18 +54,29 @@ void VideoPanel::configureVideoSettings(void) {
 	VideoSettings settingsDialog;
 	settingsDialog.setWinFormat(0);
 	if (settingsDialog.exec()) {
+		/*ui->requestedFR->setText(QString("%1").arg(camera_infos.requestedFR));
+		ui->resolutionEdit->setText(QString("%1x%2").arg(camera_infos.width).arg(camera_infos.height));
 
+		audioSettings = settingsDialog.audioSettings();
+		videoSettings = settingsDialog.videoSettings();
+		videoContainerFormat = settingsDialog.format();
+
+		mediaRecorder->setEncodingSettings(
+		audioSettings,
+		videoSettings,
+		videoContainerFormat);
+		*/
 	}
 	/*
 	settingsDialog.setWinFormat(winFormatIdx);
 	if (settingsDialog.exec()) {
-		winFormatIdx = settingsDialog.getWinFormatIdx();
-		ui->requestedFR->setText(QString("%1").arg(winCapture->getInfoVec()[winFormatIdx].requestedFR));
-		ui->resolutionEdit->setText(QString("%1x%2").arg(winCapture->getInfoVec()[winFormatIdx].width).arg(winCapture->getInfoVec()[winFormatIdx].height));
-		std::cout << "winFormatIdx " << winFormatIdx << std::endl;
-		winCapture->setFormatIdx(winFormatIdx);
+	winFormatIdx = settingsDialog.getWinFormatIdx();
+	ui->requestedFR->setText(QString("%1").arg(winCapture->getInfoVec()[winFormatIdx].requestedFR));
+	ui->resolutionEdit->setText(QString("%1x%2").arg(winCapture->getInfoVec()[winFormatIdx].width).arg(winCapture->getInfoVec()[winFormatIdx].height));
+	std::cout << "winFormatIdx " << winFormatIdx << std::endl;
+	winCapture->setFormatIdx(winFormatIdx);
 	}
-	
+
 	*/
 #else
 	/*
@@ -64,21 +87,21 @@ void VideoPanel::configureVideoSettings(void) {
 	settingsDialog.setAudioSettings(audioSettings);
 	settingsDialog.setVideoSettings(videoSettings);
 	settingsDialog.setFormat(videoContainerFormat);
-	
-	if (settingsDialog.exec()) {
-		audioSettings = settingsDialog.audioSettings();
-		videoSettings = settingsDialog.videoSettings();
-		videoContainerFormat = settingsDialog.format();
 
-		mediaRecorder->setEncodingSettings(
-			audioSettings,
-			videoSettings,
-			videoContainerFormat);
+	if (settingsDialog.exec()) {
+	audioSettings = settingsDialog.audioSettings();
+	videoSettings = settingsDialog.videoSettings();
+	videoContainerFormat = settingsDialog.format();
+
+	mediaRecorder->setEncodingSettings(
+	audioSettings,
+	videoSettings,
+	videoContainerFormat);
 	//}*/
 #endif
 	ui->recordButton->setEnabled(true);
 	ui->recordButton->setText("Press to start recording");
-}
+	}
 
 void VideoPanel::record() {
 	if (ui->recordButton->text() == QString::fromStdString("Press to start recording")) {
@@ -93,7 +116,8 @@ void VideoPanel::record() {
 								   // in the future, this is set by the GUI and exception handled
 				video_size_ = cv::Size((int)reader.get(CV_CAP_PROP_FRAME_WIDTH),
 				(int)reader.get(CV_CAP_PROP_FRAME_HEIGHT));
-				fps_ = reader.get(CV_CAP_PROP_FPS);
+				//fps_ = reader.get(CV_CAP_PROP_FPS);
+				fps_ = 30;
 				has_camera_ = true;
 
 			}

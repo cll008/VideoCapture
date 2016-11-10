@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -22,18 +22,19 @@
     <ProjectGuid>{0B37D6C2-6E92-4C44-B02E-50B65447BB0A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>VideoCapture</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -62,6 +63,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)\debug\</OutDir>
     <IntDir>debug\</IntDir>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <IncludePath>..\..\LSL\libsls\bin;$(BOOST_ROOT);$(OPENCV_DIR)\build\include;$(OPENCV_DIR)\build\x64\vc12\bin;$(QT5SDK)\mkspecs\default;$(QT5SDK)\include\QtWidgets;$(QT5SDK)\include\QtNetwork;$(QT5SDK)\include\ActiveQt;$(QT5SDK)\include\QtGui;$(QT5SDK)\include\QtMultimediaWidgets;$(QT5SDK)\include\QtMultimedia;$(QT5SDK)\include\QtCore;$(IncludePath)</IncludePath>
+    <LibraryPath>$(OPENCV_DIR)\build\x64\vc12\lib;$(BOOST_ROOT)\lib64-msvc-12.0;$(QT5SDK)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)</OutDir>
@@ -105,7 +109,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(QT5SDK)\include\widgets;$(QT5SDK)\include\QtCore;$(QT5SDK)\inlcude\QtNetwork;$(QT5SDK)\include\QtGui;$(QT5SDK)\include;..\..\LSL\liblsl\bin;$(QT5SDK)\include\ActiveQt;$(QT5SDK)\mkspecs\default;$(OPENCV_DIR)\build\include;$(BOOST_ROOT);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(QT5SDK)\include\QtMultimediaWidgets;$(QT5SDK)\include\QtMultimedia;$(QT5SDK)\include\widgets;$(QT5SDK)\include\QtCore;$(QT5SDK)\inlcude\QtNetwork;$(QT5SDK)\include\QtGui;$(QT5SDK)\include;..\..\LSL\liblsl\bin;$(QT5SDK)\include\ActiveQt;$(QT5SDK)\mkspecs\default;$(OPENCV_DIR)\build\include;$(BOOST_ROOT);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Custom</Optimization>
       <OmitFramePointers>false</OmitFramePointers>
       <PreprocessorDefinitions>

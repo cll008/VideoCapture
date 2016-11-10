@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui(new Ui::MainWindow) 
 {
 	ui->setupUi(this);
+	theWindow = this;
+	
 	QObject::connect(ui->newVideoButton, SIGNAL(clicked()), this, SLOT(newVideo()));
 
 	has_camera_ = false;
@@ -34,12 +36,6 @@ MainWindow::MainWindow(QWidget *parent) :
 		++it) {
 		ui->cameraBox->addItem(QString("%1").arg(it->c_str()));
 	}
-
-	std::vector<wmfCameraInfo> camera_infos;
-
-	// will print available formats to console and store them in the camera_infos vector:
-	// wmf_obj.getCameraInfo(camera_names[0], camera_infos);
-	// populate gui box as with the camera names
 }
 
 void MainWindow::closeEvent(QCloseEvent *ev) {
@@ -56,7 +52,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::newVideo(void) {
-
+	
 	boost::shared_ptr<VideoPanel> vp(new VideoPanel());
 	//VideoPanel *vp = new VideoPanel;
 	videoPanels.push_back(vp);
