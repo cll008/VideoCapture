@@ -41,8 +41,6 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::closeEvent(QCloseEvent *ev) {
 	//if (outletButtons_ || outletPosition_)
 	//	ev->ignore();
-
-	videoPanels.clear();
 }
 
 
@@ -52,12 +50,12 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::newVideo(void) {
-	
-	QString panelCameraName = cameraBox->currentText();
-	boost::shared_ptr<VideoPanel> vp(new VideoPanel(0, panelCameraName));
-	//VideoPanel *vp = new VideoPanel;
+	QString panelCameraName = ui->cameraBox->currentText();
+
+	boost::shared_ptr<VideoPanel> vp(new VideoPanel(panelCameraName));
+
 	videoPanels.push_back(vp);
 	vp->show();
-	
+
 }
 

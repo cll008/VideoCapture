@@ -9,7 +9,6 @@
 #include <boost/asio.hpp>
 
 // Qt
-#include <QCamera>
 #include <QtWidgets>
 #include <QMediaRecorder>
 #include <QCameraImageCapture>
@@ -49,7 +48,8 @@ class VideoPanel : public QWidget
     Q_OBJECT
 
 public:
-    VideoPanel(QWidget *parent = 0, QString& title);
+    VideoPanel(QString& cameraName, QWidget *parent = 0);
+
     ~VideoPanel();
 
 private slots:

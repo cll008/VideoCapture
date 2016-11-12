@@ -46,6 +46,7 @@ private:
 	HRESULT EnumerateCameras(std::vector<std::string> &cameraNames);
 	HRESULT EnumerateCaptureFormats(IMFMediaSource *pSource, std::vector<wmfCameraInfo> &cameraInfoVec);
 	HRESULT SelectDevice(std::string deviceName, std::vector<wmfCameraInfo> &cameraInfoVec);
+	HRESULT init_hr_IMFAttributes();
 
 	UINT32                  m_cDevices;
 	IMFActivate             **m_ppDevices;

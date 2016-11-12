@@ -9,27 +9,24 @@
 #include <iostream>
 
 
-VideoPanel::VideoPanel(QWidget *parent, QString& title) :
+VideoPanel::VideoPanel(QString& cameraName, QWidget *parent):
+
 	QWidget(parent),
-	ui(new Ui::videoPanel),
+	ui(new Ui::videoPanel) /*,
 	camera(0),
 	imageCapture(0),
-	mediaRecorder(0)
+	mediaRecorder(0)*/
 {
 	ui->setupUi(this);
-	//QString panelCameraName = theWindow->selectedCameraName;
-	this->setWindowTitle(title);
+	this->setWindowTitle(cameraName);
+
 	
-	//setWindowTitle(theWindow->cameraBox.currentText());
-		
-	std::cout << panelCameraName.toStdString() << std::endl;
+	WmfEnumerateCameras wmfNewCamera_obj;
+	std::vector<wmfCameraInfo> camera_infos;
 
-	// will print available formats to console and store them in the camera_infos vector:
+	wmfNewCamera_obj.getCameraInfo(cameraName.toStdString(), camera_infos);
 
-	//WmfEnumerateCameras wmfNewCamera_obj;
-	//std::vector<wmfCameraInfo> camera_infos;
-	//wmfNewCamera_obj.getCameraInfo(panelCameraName.toStdString(), camera_infos);
-
+	
 	// signals and slots here
 	QObject::connect(ui->recordButton, SIGNAL(clicked()), this, SLOT(record()));
 	QObject::connect(ui->recordingSettingsButton, SIGNAL(clicked()), this, SLOT(configureVideoSettings()));

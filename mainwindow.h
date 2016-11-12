@@ -2,17 +2,13 @@
 #define MAINWINDOW_H
 
 #include "videopanel.h"
-
-// boost
-#include <boost/shared_ptr.hpp>
-#include <boost/thread.hpp>
-#include <boost/asio.hpp>
-
 // Qt
 #include <QtWidgets\QMainWindow>
 #include <QtGui\QCloseEvent>
 #include <QtWidgets\QMessageBox>
 #include <QtNetwork\QHostInfo>
+#include <QCameraInfo>
+
 
 // opencv -- for webcams and such
 #include "opencv2/opencv.hpp"
@@ -51,11 +47,9 @@ private slots:
 
 
 private:
-
-
-    Ui::MainWindow *ui;										// window pointer
+	Ui::MainWindow *ui;										// window pointer
 	QList<QCameraInfo> cameraInfos;
-	std::vector<boost::shared_ptr<VideoPanel>> videoPanels; //
+	std::vector<boost::shared_ptr<VideoPanel>> videoPanels; // need this and videopanel.h or new VideoPanel goes out of scope and closes?
 
 	bool has_camera_;
 

@@ -20,42 +20,7 @@ template <class T> void SafeRelease(T **ppT)
 // puts the names of all connected devices into a std::string vector
 HRESULT WmfEnumerateCameras::EnumerateCameras(std::vector<std::string> &cameraNameVec) {
 	
-
-	
-	//IMFMediaSource *pSource = NULL;
-	//cameraNames.clear();
-	IMFAttributes *pAttributes = NULL;
-	// Create an attribute store to specify the enumeration parameters.
-	HRESULT hr = MFCreateAttributes(&pAttributes, 1);
-	if (FAILED(hr))
-	{
-		goto done;
-	}
-
-
-	// Source type: video capture devices
-	hr = pAttributes->SetGUID(
-		MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE,
-		MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_VIDCAP_GUID
-		);
-	if (FAILED(hr))
-	{
-		goto done;
-	}
-
-	// Enumerate devices.
-
-	hr = MFEnumDeviceSources(pAttributes, &m_ppDevices, &m_cDevices);
-	if (FAILED(hr))
-	{
-		goto done;
-	}
-
-	if (m_cDevices == 0)
-	{
-		hr = E_FAIL;
-		goto done;
-	}
+	HRESULT hr = init_hr_IMFAttributes();
 
 	WCHAR *szFriendlyName;
 	UINT32 cchName;
@@ -71,13 +36,13 @@ HRESULT WmfEnumerateCameras::EnumerateCameras(std::vector<std::string> &cameraNa
 		std::cout << cameraNameVec[i] << std::endl;
 	}
 	
-	goto done;
+/*	goto done;
 	
 
 done:
-	SafeRelease(&pAttributes);
+	SafeRelease(&pAttributes);*/
 	return hr;
-
+	
 }
 
 
@@ -179,13 +144,12 @@ done:
 //
 HRESULT WmfEnumerateCameras::SelectDevice(std::string deviceName, std::vector<wmfCameraInfo> &cameraInfoVec) {
 
-
-	HRESULT hr;
 	UINT32 cchName;
 	WCHAR *szFriendlyName=NULL;
 	std::wstring *ws;
 	std::string *s; 
 	IMFMediaSource *pSource=NULL;
+	HRESULT hr = init_hr_IMFAttributes();
 
 	for (int i = 0; i < m_cDevices; i++) {
 		hr = m_ppDevices[i]->GetAllocatedString(
@@ -227,6 +191,44 @@ done:
 	return hr;
 }
 
+HRESULT  WmfEnumerateCameras::init_hr_IMFAttributes(){
+	IMFAttributes *pAttributes = NULL;
+	// Create an attribute store to specify the enumeration parameters.
+	HRESULT hr = MFCreateAttributes(&pAttributes, 1);
+	if (FAILED(hr))
+	{
+		goto done;
+	}
+
+
+	// Source type: video capture devices
+	hr = pAttributes->SetGUID(
+		MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE,
+		MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_VIDCAP_GUID
+	);
+	if (FAILED(hr))
+	{
+		goto done;
+	}
+
+	// Enumerate devices.
+
+	hr = MFEnumDeviceSources(pAttributes, &m_ppDevices, &m_cDevices);
+	if (FAILED(hr))
+	{
+		goto done;
+	}
+
+	if (m_cDevices == 0)
+	{
+		hr = E_FAIL;
+		goto done;
+	}
+
+done:
+	SafeRelease(&pAttributes);
+	return hr;
+}
 
 // public interface
 void WmfEnumerateCameras::getCameraNames(std::vector<std::string> &cameraNameVec){
