@@ -9,18 +9,13 @@
 #include <boost/asio.hpp>
 
 // Qt
-#include <QtWidgets>
-#include <QMediaRecorder>
-#include <QCameraImageCapture>
-#include <QCameraViewFinder>
-#include <QCameraInfo>
-#include <QVideoWidget>
+#include <QtGui>
 #include <QApplication>
-#include <QMediaService>
-#include <QMediaRecorder>
-#include <QMediaMetaData>
 #include <QMainWindow>
 #include <QCloseEvent>
+#include <QtCore/QString>
+#include <QtCore/QObject>
+
 
 // opencv
 #include "opencv2/opencv.hpp"
@@ -60,14 +55,6 @@ private slots:
 private:
 	Ui::videoPanel *ui;
 	
-	QCamera *camera;
-	QList<QCameraInfo> cameraInfos;
-	QCameraImageCapture *imageCapture;
-    QMediaRecorder* mediaRecorder;
-
-    QImageEncoderSettings imageSettings;
-    QAudioEncoderSettings audioSettings;
-   // QVideoEncoderSettings videoSettings;
   	QString videoContainerFormat;
     bool isCapturingVideo;
 

@@ -29,14 +29,14 @@
     <ClCompile Include="videopanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="videosettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="release\moc_mainwindow.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="release\moc_videopanel.cpp">
       <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="videosettings.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="release\moc_videosettings.cpp">
       <Filter>Generated Files</Filter>

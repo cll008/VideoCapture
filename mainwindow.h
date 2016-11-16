@@ -3,11 +3,13 @@
 
 #include "videopanel.h"
 // Qt
-#include <QtWidgets\QMainWindow>
-#include <QtGui\QCloseEvent>
-#include <QtWidgets\QMessageBox>
-#include <QtNetwork\QHostInfo>
-#include <QCameraInfo>
+#include <QMainWindow>
+#include <QCloseEvent>
+#include <QMessageBox>
+#include <QtCore/QString>
+#include <QtCore/QObject>
+#include <QtNetwork/QHostInfo>
+// #include <QCamera>
 
 
 // opencv -- for webcams and such
@@ -48,7 +50,7 @@ private slots:
 
 private:
 	Ui::MainWindow *ui;										// window pointer
-	QList<QCameraInfo> cameraInfos;
+	// QList<QCameraInfo> cameraInfos;
 	std::vector<boost::shared_ptr<VideoPanel>> videoPanels; // need this and videopanel.h or new VideoPanel goes out of scope and closes?
 
 	bool has_camera_;

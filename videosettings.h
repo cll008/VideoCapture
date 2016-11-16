@@ -54,9 +54,6 @@
 #endif
 
 #include <QDialog>
-#include <QAudioEncoderSettings>
-#include <QVideoEncoderSettings>
-
 
 
 QT_BEGIN_NAMESPACE
@@ -83,12 +80,6 @@ public:
 	// for windows
 	int getWinFormatIdx(void) const;
 	void setWinFormat(const int idx);
-
-    QAudioEncoderSettings audioSettings() const;
-    void setAudioSettings(const QAudioEncoderSettings&);
-
-    QVideoEncoderSettings videoSettings() const;
-    void setVideoSettings(const QVideoEncoderSettings&);
 
     QString format() const;
     void setFormat(const QString &format);

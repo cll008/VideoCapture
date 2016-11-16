@@ -64,13 +64,13 @@
     <OutDir>$(SolutionDir)\debug\</OutDir>
     <IntDir>debug\</IntDir>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
-    <IncludePath>..\..\LSL\libsls\bin;$(BOOST_ROOT);$(OPENCV_DIR)\build\include;$(OPENCV_DIR)\build\x64\vc12\bin;$(QT5SDK)\mkspecs\default;$(QT5SDK)\include\QtWidgets;$(QT5SDK)\include\QtNetwork;$(QT5SDK)\include\ActiveQt;$(QT5SDK)\include\QtGui;$(QT5SDK)\include\QtMultimediaWidgets;$(QT5SDK)\include\QtMultimedia;$(QT5SDK)\include\QtCore;$(IncludePath)</IncludePath>
+    <IncludePath>$(QT4SDK)\mkspecs\default;$(QT4SDK)\include\ActiveQt;$(QT4SDK)\include\QtGui;$(QT4SDK)\include\QtNetwork;$(QT4SDK)\include\QtMultimedia;$(BOOST_ROOT);$(OPENCV_DIR)\build\include\opencv2;$(IncludePath)</IncludePath>
     <LibraryPath>$(OPENCV_DIR)\build\x64\vc12\lib;$(BOOST_ROOT)\lib64-msvc-12.0;$(QT5SDK)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)</OutDir>
     <IntDir>release\</IntDir>
-    <IncludePath>$(QT5SDK)\include\QtMultimediaWidgets;$(QT5SDK)\include\QtMultimedia;$(QT5SDK)\include\QtWidgets;$(OPENCV_DIR)\build\x64\vc12\bin;$(QT5SDK)\mkspecs\default;$(QT5SDK)\include\ActiveQt;..\..\LSL\liblsl\bin;$(QT5SDK)\include\QtGui;$(QT5SDK)\include\QtNetwork;$(QT5SDK)\include\QtCore;$(QT5SDK)\include;$(BOOST_ROOT);$(OPENCV_DIR)\build\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(QT4SDK)\include\;$(QT4SDK)\include\QtGui;$(QT4SDK)\mkspecs\default;$(BOOST_ROOT);$(OPENCV_DIR)\build\include\;$(OPENCV_DIR)\build\x64\vc12\bin;$(IncludePath)</IncludePath>
     <LibraryPath>$(OPENCV_DIR)\build\x64\vc12\lib;$(QT5SDK)\lib;$(BOOST_ROOT)\lib64-msvc-12.0;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -109,7 +109,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(QT5SDK)\include\QtMultimediaWidgets;$(QT5SDK)\include\QtMultimedia;$(QT5SDK)\include\widgets;$(QT5SDK)\include\QtCore;$(QT5SDK)\inlcude\QtNetwork;$(QT5SDK)\include\QtGui;$(QT5SDK)\include;..\..\LSL\liblsl\bin;$(QT5SDK)\include\ActiveQt;$(QT5SDK)\mkspecs\default;$(OPENCV_DIR)\build\include;$(BOOST_ROOT);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Custom</Optimization>
       <OmitFramePointers>false</OmitFramePointers>
       <PreprocessorDefinitions>
@@ -138,16 +138,19 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(QT5SDK)\include\widgets;$(QT5SDK)\include\QtCore;$(QT5SDK)\inlcude\QtNetwork;$(QT5SDK)\include\QtGui;$(QT5SDK)\include;..\..\LSL\liblsl\bin;$(QT5SDK)\include\QtMultimedia;$(QT5SDK)\include\QtMultimediaWidgets;$(QT5SDK)\include\ActiveQt;$(QT5SDK)\mkspecs\default;$(OPENCV_DIR)\build\include;$(BOOST_ROOT);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(BOOST_ROOT)\lib64-msvc-12.0;$(QT5SDK)\lib;$(OPENCV_DIR)\build\x64\vc12\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)\lib64-msvc-12.0;$(QT4SDK)\lib;$(OPENCV_DIR)\build\x64\vc12\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(QT5SDK)\lib\Qt5Core.lib;$(QT5SDK)\lib\Qt5Gui.lib;$(QT5SDK)\lib\Qt5Widgets.lib;$(QT5SDK)\lib\Qt5Multimedia.lib;$(QT5SDK)\lib\Qt5MultimediaWidgets.lib;opencv_core249.lib;opencv_highgui249.lib;mfplat.lib;mf.lib;mfreadwrite.lib;mfuuid.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="main.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QT4SDK)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT4SDK)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="mf_enumerate_cameras.cpp" />
     <ClCompile Include="release\moc_mainwindow.cpp" />
@@ -163,10 +166,10 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UIC mainwindow.ui</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ui_mainwindow.h</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QT5SDK)\bin\uic.exe;mainwindow.ui</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\uic.exe mainwindow.ui -o ui_mainwindow.h</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT4SDK)\bin\uic.exe mainwindow.ui -o ui_mainwindow.h</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UIC mainwindow.ui</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ui_mainwindow.h</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\uic.exe;mainwindow.ui</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT4SDK)\bin\uic.exe;mainwindow.ui</AdditionalInputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -174,45 +177,45 @@
     <ClInclude Include="ui_videopanel.h" />
     <ClInclude Include="ui_videosettings.h" />
     <CustomBuild Include="videosettings.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QT5SDK)\include\QtCore" -I"$(QT5SDK)\include\QtGui" -I"$(QT5SDK)\include\QyWidgets" -I"$(QT5SDK)\include\QtMultimedia" -I"$(QT5SDK)\include" -I"..\..\LSL\liblsl\include" -I"..\..\LSL\liblsl\external" -I"$(BOOST_ROOT)" -I"$(QT5SDK)\include\ActiveQt" -I"release" -I"." -I$(QT5SDK)\mkspecs\default -D_MSC_VER=1500 -DWIN32 videosettings.h -o release\moc_videosettings.cpp</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT4SDK)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QT5SDK)\include\QtCore" -I"$(QT5SDK)\include\QtGui" -I"$(QT5SDK)\include\QyWidgets" -I"$(QT5SDK)\include\QtMultimedia" -I"$(QT5SDK)\include" -I"..\..\LSL\liblsl\include" -I"..\..\LSL\liblsl\external" -I"$(BOOST_ROOT)" -I"$(QT5SDK)\include\ActiveQt" -I"release" -I"." -I$(QT5SDK)\mkspecs\default -D_MSC_VER=1500 -DWIN32 videosettings.h -o release\moc_videosettings.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC videosettings.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_videosettings.cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\moc.exe;videosettings.h</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT4SDK)\bin\moc.exe;videosettings.h</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="videopanel.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QT5SDK)\include\QtCore" -I"$(QT5SDK)\include\QtGui" -I"$(QT5SDK)\include\QyWidgets" -I"$(QT5SDK)\include\QtMultimedia" -I"$(QT5SDK)\include" -I"..\..\LSL\liblsl\include" -I"..\..\LSL\liblsl\external" -I"$(BOOST_ROOT)" -I"$(QT5SDK)\include\ActiveQt" -I"release" -I"." -I$(QT5SDK)\mkspecs\default -D_MSC_VER=1500 -DWIN32 videopanel.h -o release\moc_videopanel.cpp</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT4SDK)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QT5SDK)\include\QtCore" -I"$(QT5SDK)\include\QtGui" -I"$(QT5SDK)\include\QyWidgets" -I"$(QT5SDK)\include\QtMultimedia" -I"$(QT5SDK)\include" -I"..\..\LSL\liblsl\include" -I"..\..\LSL\liblsl\external" -I"$(BOOST_ROOT)" -I"$(QT5SDK)\include\ActiveQt" -I"release" -I"." -I$(QT5SDK)\mkspecs\default -D_MSC_VER=1500 -DWIN32 videopanel.h -o release\moc_videopanel.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC videopanel.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_videopanel.cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\moc.exe;videopanel.h</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT4SDK)\bin\moc.exe;videopanel.h</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="mainwindow.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QT5SDK)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"(QT5SDK)\include\QtCore" -I"(QT5SDK)\include\QtGui" -I"(QT5SDK)\include" -I"..\..\LSL\liblsl\bin" -I"(QT5SDK)\include\ActiveQt" -I"debug" -I"." -I(QTSDK)\mkspecs\default -D_MSC_VER=1500 -DWIN32 mainwindow.h -o debug\moc_mainwindow.cpp</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QT4SDK)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"(QT5SDK)\include\QtCore" -I"(QT5SDK)\include\QtGui" -I"(QT5SDK)\include" -I"..\..\LSL\liblsl\bin" -I"(QT5SDK)\include\ActiveQt" -I"debug" -I"." -I(QTSDK)\mkspecs\default -D_MSC_VER=1500 -DWIN32 mainwindow.h -o debug\moc_mainwindow.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC mainwindow.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\moc_mainwindow.cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QT5SDK)\bin\moc.exe;mainwindow.h</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"(QT5SDK)\include\QtCore" -I"(QT5SDK)\include\QtGui" -I"(QT5SDK)\include" -I"..\..\LSL\liblsl\bin" -I"(QTSDK)\include\ActiveQt" -I"release" -I"." -I(QT5SDK)\mkspecs\default -D_MSC_VER=1500 -DWIN32 mainwindow.h -o release\moc_mainwindow.cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QT4SDK)\bin\moc.exe;mainwindow.h</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT4SDK)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"(QT5SDK)\include\QtCore" -I"(QT5SDK)\include\QtGui" -I"(QT5SDK)\include" -I"..\..\LSL\liblsl\bin" -I"(QTSDK)\include\ActiveQt" -I"release" -I"." -I(QT5SDK)\mkspecs\default -D_MSC_VER=1500 -DWIN32 mainwindow.h -o release\moc_mainwindow.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC mainwindow.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_mainwindow.cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\moc.exe;mainwindow.h</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT4SDK)\bin\moc.exe;mainwindow.h</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="mf_enumerate_cameras.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="videopanel.ui">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\uic.exe videopanel.ui -o ui_videopanel.h</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT4SDK)\bin\uic.exe videopanel.ui -o ui_videopanel.h</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UIC videopanel.ui</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ui_videopanel.h</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\uic.exe;videopanel.ui</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT4SDK)\bin\uic.exe;videopanel.ui</AdditionalInputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="videosettings.ui">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\uic.exe videosettings.ui -o ui_videosettings.h</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT4SDK)\bin\uic.exe videosettings.ui -o ui_videosettings.h</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UIC videosettings.ui</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ui_videosettings.h</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\uic.exe;videosettings.ui</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT4SDK)\bin\uic.exe;videosettings.ui</AdditionalInputs>
     </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include <QtWidgets\QApplication>
+#include <QtGui\QApplication>
 
 MainWindow *theWindow = NULL;
 
