@@ -1,7 +1,9 @@
 #ifndef VIDEOPANEL_H
 #define VIDEOPANEL_H
 
+#ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
+#endif
 
 // boost
 #include <boost/shared_ptr.hpp>
@@ -9,13 +11,18 @@
 #include <boost/asio.hpp>
 
 // Qt
-#include <QtGui>
+#include <QtWidgets>
+#include <QMediaRecorder>
+#include <QCameraImageCapture>
+#include <QCameraViewFinder>
+#include <QCameraInfo>
+#include <QVideoWidget>
 #include <QApplication>
+#include <QMediaService>
+#include <QMediaRecorder>
+#include <QMediaMetaData>
 #include <QMainWindow>
 #include <QCloseEvent>
-#include <QtCore/QString>
-#include <QtCore/QObject>
-
 
 // opencv
 #include "opencv2/opencv.hpp"
@@ -55,6 +62,14 @@ private slots:
 private:
 	Ui::videoPanel *ui;
 	
+	QCamera *camera;
+	QList<QCameraInfo> cameraInfos;
+	QCameraImageCapture *imageCapture;
+    QMediaRecorder* mediaRecorder;
+
+    QImageEncoderSettings imageSettings;
+    QAudioEncoderSettings audioSettings;
+   // QVideoEncoderSettings videoSettings;
   	QString videoContainerFormat;
     bool isCapturingVideo;
 

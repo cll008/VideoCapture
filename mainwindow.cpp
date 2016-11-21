@@ -3,17 +3,6 @@
 #include <Objbase.h>
 #include <iostream>
 
-
-// enumerate cameras using windows media foundation
-// TODO: the same but cross platform -- perhaps using Qt5? this requires
-// shifting the whole project to visual studio >= 2010, which is a pain...
-#ifdef _WIN32
-
-// calls to mf_enumerate_cameras go here
-
-#endif
-
-
 MainWindow::MainWindow(QWidget *parent) : 
 	QMainWindow(parent), 
 	ui(new Ui::MainWindow) 

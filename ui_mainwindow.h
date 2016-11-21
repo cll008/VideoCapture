@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.6
+** Created by: Qt User Interface Compiler version 5.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,19 +10,19 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QComboBox>
-#include <QtGui/QGridLayout>
-#include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
-#include <QtGui/QMainWindow>
-#include <QtGui/QMenuBar>
-#include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QStatusBar>
-#include <QtGui/QWidget>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
@@ -41,28 +41,28 @@ public:
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
-            MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
+            MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(313, 149);
         MainWindow->setMinimumSize(QSize(130, 77));
         MainWindow->setMaximumSize(QSize(500, 400));
         centralWidget = new QWidget(MainWindow);
-        centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
+        centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         cameraBox = new QComboBox(centralWidget);
-        cameraBox->setObjectName(QString::fromUtf8("cameraBox"));
+        cameraBox->setObjectName(QStringLiteral("cameraBox"));
 
         gridLayout->addWidget(cameraBox, 2, 0, 1, 1);
 
         newVideoButton = new QPushButton(centralWidget);
-        newVideoButton->setObjectName(QString::fromUtf8("newVideoButton"));
+        newVideoButton->setObjectName(QStringLiteral("newVideoButton"));
 
         gridLayout->addWidget(newVideoButton, 5, 0, 1, 1);
 
         label = new QLabel(centralWidget);
-        label->setObjectName(QString::fromUtf8("label"));
+        label->setObjectName(QStringLiteral("label"));
 
         gridLayout->addWidget(label, 0, 0, 1, 1);
 
@@ -72,11 +72,11 @@ public:
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
-        menuBar->setObjectName(QString::fromUtf8("menuBar"));
+        menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 313, 21));
         MainWindow->setMenuBar(menuBar);
         statusBar = new QStatusBar(MainWindow);
-        statusBar->setObjectName(QString::fromUtf8("statusBar"));
+        statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
 
         retranslateUi(MainWindow);
@@ -86,9 +86,9 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "VideoConnector", 0, QApplication::UnicodeUTF8));
-        newVideoButton->setText(QApplication::translate("MainWindow", "Launch New Video Panel", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("MainWindow", "Choose Camera:", 0, QApplication::UnicodeUTF8));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "VideoConnector", 0));
+        newVideoButton->setText(QApplication::translate("MainWindow", "Launch New Video Panel", 0));
+        label->setText(QApplication::translate("MainWindow", "Choose Camera:", 0));
     } // retranslateUi
 
 };

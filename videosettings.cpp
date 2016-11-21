@@ -51,7 +51,9 @@
 #include "ui_videosettings.h"
 
 #include <QComboBox>
-#include <QtCore/QDebug>
+#include <QDebug>
+#include <QMediaRecorder>
+#include <QMediaService>
 #include <iostream>
 
 VideoSettings::VideoSettings(QWidget *parent) :
@@ -166,7 +168,7 @@ void VideoSettings::changeEvent(QEvent *e)
         break;
     }
 }
-/*
+
 QAudioEncoderSettings VideoSettings::audioSettings() const
 {
     QAudioEncoderSettings settings = mediaRecorder->audioSettings();
@@ -210,7 +212,7 @@ void VideoSettings::setVideoSettings(const QVideoEncoderSettings &videoSettings)
         }
     }
 }
-*/
+
 QString VideoSettings::format() const
 {
     return boxValue(ui->containerFormatBox).toString();

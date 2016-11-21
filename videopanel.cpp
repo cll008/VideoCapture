@@ -4,7 +4,6 @@
 #include "videosettings.h"
 #include "mainwindow.h"
 
-
 #include <Objbase.h>
 #include <iostream>
 
@@ -47,7 +46,7 @@ VideoPanel::~VideoPanel() {
 
 void VideoPanel::configureVideoSettings(void) {
 	//
-#ifdef _WIN32
+//#ifdef _WIN32
 	VideoSettings settingsDialog;
 	settingsDialog.setWinFormat(0);
 	if (settingsDialog.exec()) {
@@ -75,7 +74,7 @@ void VideoPanel::configureVideoSettings(void) {
 	}
 
 	*/
-#else
+//#else
 	/*
 	// copied from QT5 'Camera Example'
 
@@ -95,7 +94,7 @@ void VideoPanel::configureVideoSettings(void) {
 	videoSettings,
 	videoContainerFormat);
 	//}*/
-#endif
+//#endif
 	ui->recordButton->setEnabled(true);
 	ui->recordButton->setText("Press to start recording");
 	}

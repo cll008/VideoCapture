@@ -1,15 +1,21 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+// windows
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#endif
+
 #include "videopanel.h"
+#include "mf_enumerate_cameras.h"
+
 // Qt
-#include <QMainWindow>
-#include <QCloseEvent>
-#include <QMessageBox>
-#include <QtCore/QString>
-#include <QtCore/QObject>
-#include <QtNetwork/QHostInfo>
-// #include <QCamera>
+#include <QtWidgets\QMainWindow>
+#include <QtGui\QCloseEvent>
+#include <QtWidgets\QMessageBox>
+#include <QtNetwork\QHostInfo>
+#include <QCameraInfo>
 
 
 // opencv -- for webcams and such
@@ -17,12 +23,6 @@
 
 // pointgrey -- for interfacing with pointgrey cameras
 
-// windows
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#include "mf_enumerate_cameras.h"
-#endif
 
 // LSL
 #include "../../LSL/liblsl/include/lsl_cpp.h"
@@ -50,7 +50,7 @@ private slots:
 
 private:
 	Ui::MainWindow *ui;										// window pointer
-	// QList<QCameraInfo> cameraInfos;
+	QList<QCameraInfo> cameraInfos;
 	std::vector<boost::shared_ptr<VideoPanel>> videoPanels; // need this and videopanel.h or new VideoPanel goes out of scope and closes?
 
 	bool has_camera_;
