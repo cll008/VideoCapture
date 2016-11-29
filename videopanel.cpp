@@ -1,36 +1,53 @@
 
 #include "videopanel.h"
 #include "ui_videopanel.h"
-#include "videosettings.h"
-#include "mainwindow.h"
+#include "mf_enumerate_cameras.h"
 
 #include <Objbase.h>
 #include <iostream>
 
+std::vector<wmfCameraInfo> camera_infos;
 
-VideoPanel::VideoPanel(QString& cameraName, QWidget *parent):
+VideoPanel::VideoPanel(QString& cameraName, QWidget *parent) :
 
 	QWidget(parent),
-	ui(new Ui::videoPanel) /*,
-	camera(0),
-	imageCapture(0),
-	mediaRecorder(0)*/
+	ui(new Ui::videoPanel)
 {
 	ui->setupUi(this);
 	this->setWindowTitle(cameraName);
 
-	
+	// populate GUI with options
 	WmfEnumerateCameras wmfNewCamera_obj;
-	std::vector<wmfCameraInfo> camera_infos;
-
 	wmfNewCamera_obj.getCameraInfo(cameraName.toStdString(), camera_infos);
 
-	
+#ifdef _WIN32
+	ui->videoResolutionLabel->setEnabled(false);
+	ui->videoResolutionBox->setEnabled(false);
+	ui->videoFrameRateLabel->setEnabled(false);
+	ui->videoFramerateBox->setEnabled(false);
+	ui->videoCodecBox->setEnabled(false);
+	ui->videoCodecLabel->setEnabled(false);
+
+	ui->videoFormatLabel->setEnabled(true);
+	ui->videoFormatBox->setEnabled(true);
+
+
+	for (int i = 0; i < camera_infos.size(); i++) {
+		QString width = QString::number(camera_infos[i].width);
+		QString height = QString::number(camera_infos[i].height);
+		QString frameRate = QString::number(camera_infos[i].frameRate);
+		QString denominator = QString::number(camera_infos[i].denominator);
+
+		ui->videoFormatBox->addItem(QString("%1x%2, %3 frames/%4 denominator").arg(width).arg(height).arg(frameRate).arg(denominator));
+	}
+
+#endif
+
+	//
 	// signals and slots here
 	QObject::connect(ui->recordButton, SIGNAL(clicked()), this, SLOT(record()));
-	QObject::connect(ui->recordingSettingsButton, SIGNAL(clicked()), this, SLOT(configureVideoSettings()));
-
 }
+
 
 void VideoPanel::closeEvent(QCloseEvent *ev) {
 
@@ -44,80 +61,41 @@ VideoPanel::~VideoPanel() {
 	delete ui;
 }
 
-void VideoPanel::configureVideoSettings(void) {
-	//
-//#ifdef _WIN32
-	VideoSettings settingsDialog;
-	settingsDialog.setWinFormat(0);
-	if (settingsDialog.exec()) {
-		/*ui->requestedFR->setText(QString("%1").arg(camera_infos.requestedFR));
-		ui->resolutionEdit->setText(QString("%1x%2").arg(camera_infos.width).arg(camera_infos.height));
-
-		audioSettings = settingsDialog.audioSettings();
-		videoSettings = settingsDialog.videoSettings();
-		videoContainerFormat = settingsDialog.format();
-
-		mediaRecorder->setEncodingSettings(
-		audioSettings,
-		videoSettings,
-		videoContainerFormat);
-		*/
-	}
-	/*
-	settingsDialog.setWinFormat(winFormatIdx);
-	if (settingsDialog.exec()) {
-	winFormatIdx = settingsDialog.getWinFormatIdx();
-	ui->requestedFR->setText(QString("%1").arg(winCapture->getInfoVec()[winFormatIdx].requestedFR));
-	ui->resolutionEdit->setText(QString("%1x%2").arg(winCapture->getInfoVec()[winFormatIdx].width).arg(winCapture->getInfoVec()[winFormatIdx].height));
-	std::cout << "winFormatIdx " << winFormatIdx << std::endl;
-	winCapture->setFormatIdx(winFormatIdx);
-	}
-
-	*/
-//#else
-	/*
-	// copied from QT5 'Camera Example'
-
-	VideoSettings settingsDialog(mediaRecorder);
-	// if it is already there, then keep the current settings
-	settingsDialog.setAudioSettings(audioSettings);
-	settingsDialog.setVideoSettings(videoSettings);
-	settingsDialog.setFormat(videoContainerFormat);
-
-	if (settingsDialog.exec()) {
-	audioSettings = settingsDialog.audioSettings();
-	videoSettings = settingsDialog.videoSettings();
-	videoContainerFormat = settingsDialog.format();
-
-	mediaRecorder->setEncodingSettings(
-	audioSettings,
-	videoSettings,
-	videoContainerFormat);
-	//}*/
-//#endif
-	ui->recordButton->setEnabled(true);
-	ui->recordButton->setText("Press to start recording");
-	}
-
 void VideoPanel::record() {
-	if (ui->recordButton->text() == QString::fromStdString("Press to start recording")) {
+	if (ui->recordButton->text() == QString::fromStdString("Record")) {
 
 		try{
 			ui->recordButton->setText("Recording... press to stop");
+			ui->videoFormatLabel->setEnabled(false);
+			ui->videoFormatBox->setEnabled(false);
+			ui->saveFileNameEdit->setEnabled(false);
+
+			int vidFormatIdx = ui->videoFormatBox->currentIndex();
+			int frameWidth  = camera_infos[vidFormatIdx].width;
+			int frameHeight = camera_infos[vidFormatIdx].height;
+				
+			
+			ui->resolutionEdit->setText(QString("%1x%2").arg(frameWidth).arg(frameHeight));
+			ui->requestedFR->setText(QString("Hardcoded at 30fps currently"));
+
 			reader.open(0);
 
 			cv::Mat foo_frame;       // get first frame to find size and type
 			reader >> foo_frame;
 			if (reader.isOpened()) {   // these methods return 0 if a frame hasn't been grabbed
-								   // in the future, this is set by the GUI and exception handled
-				video_size_ = cv::Size((int)reader.get(CV_CAP_PROP_FRAME_WIDTH),
-				(int)reader.get(CV_CAP_PROP_FRAME_HEIGHT));
-				//fps_ = reader.get(CV_CAP_PROP_FPS);
-				fps_ = 30;
+
+				
+				reader.set(CV_CAP_PROP_FRAME_WIDTH , frameWidth);
+				reader.set(CV_CAP_PROP_FRAME_HEIGHT, frameHeight);
+				//reader.set(CV_CAP_PROP_FPS, fps_);
+				
+				video_size_ = cv::Size(frameWidth, frameHeight);
+				fps_ = camera_infos[vidFormatIdx].frameRate;
+
 				has_camera_ = true;
 
 			}
-			else { return; } // needs more informative error checking
+			else { std::cout << "Could not start camera." << std::endl; } // needs more informative error checking
 
 			r_stop_ = false;
 			r_thread_.reset(new boost::thread(&VideoPanel::read_thread, this));
@@ -126,7 +104,9 @@ void VideoPanel::record() {
 			// http://answers.opencv.org/question/76077/videowriter-fails-to-open-inside-thread/
 			// but this also works if the reader and writer are in the same thread (not main thread)
 			// all along
-			writer.open("foo.avi", -1, fps_, video_size_);//CV_FOURCC('M', 'P', 'E', 'G'), fps_, video_size_);
+
+			std::string saveName = ui->saveFileNameEdit->text().toStdString();
+			writer.open(saveName, -1, fps_, video_size_);//CV_FOURCC('M', 'P', 'E', 'G'), fps_, video_size_);
 			w_stop_ = false;
 			w_thread_.reset(new boost::thread(&VideoPanel::write_thread, this));
 		}
@@ -143,7 +123,10 @@ void VideoPanel::record() {
 			// winCapture->finishCapture();
 			r_stop_ = true;
 			w_stop_ = true;
-			ui->recordButton->setText("Press to start recording");
+			ui->recordButton->setText("Record");
+			ui->videoFormatLabel->setEnabled(true);
+			ui->videoFormatBox->setEnabled(true);
+			ui->saveFileNameEdit->setEnabled(true);
 		}
 		catch (std::exception &e) {
 			QMessageBox::critical(this, "Error", (std::string("Could not stop recording: ") += e.what()).c_str(), QMessageBox::Ok);
@@ -155,15 +138,10 @@ void VideoPanel::record() {
 
 void VideoPanel::read_thread(void) {
 
-	//cv::VideoCapture reader(0);
-	cv::Mat foo_frame; // get first frame to find size and type
-	reader >> foo_frame;
 	if (reader.isOpened()) {
 
-		video_size_ = cv::Size((int)reader.get(CV_CAP_PROP_FRAME_WIDTH),
-			(int)reader.get(CV_CAP_PROP_FRAME_HEIGHT));
-		fps_ = reader.get(CV_CAP_PROP_FPS);
-		if (fps_ == 0)fps_ = 30; // don't know why this is 0 here...
+		//fps_ = reader.get(CV_CAP_PROP_FPS); //opencv webcam fps has to be manually calculated
+		if (fps_ == 0)fps_ = 30; 
 		has_camera_ = true;
 
 	}
@@ -176,7 +154,6 @@ void VideoPanel::read_thread(void) {
 	lsl::stream_info   info("VideoCaptureRead", "Video", 1, fps_, lsl::cf_int32, boost::asio::ip::host_name());
 	lsl::stream_outlet outlet(info);
 
-
 	try {
 
 		while (!r_stop_) {
@@ -184,8 +161,6 @@ void VideoPanel::read_thread(void) {
 			double time_now = lsl::local_clock();
 
 			cv::Mat frame;
-
-
 			t_frame_data frame_data;
 
 			// impose a hard lock
@@ -213,7 +188,8 @@ void VideoPanel::read_thread(void) {
 			cnt++;
 
 			cv::imshow("VideoCapture", frame);
-
+			ui->actualFR->setText(QString::number(fps_));
+			ui->frameCount->setText(QString::number(cnt));
 
 
 			// display the frame?
@@ -236,9 +212,7 @@ void VideoPanel::write_thread(void) {
 	try {
 		lsl::stream_info   info("VideoCaptureWrite", "Video", 1, fps_, lsl::cf_int32, boost::asio::ip::host_name());
 		lsl::stream_outlet outlet(info);
-		//cv::VideoWriter writer;
-		//writer.open("foo.avi", -1, fps_, video_size_);
-		//writer.open("foo.avi", CV_FOURCC('M', 'J', 'P', 'G'), fps_, video_size_);
+
 		if (!writer.isOpened()) {
 			QMessageBox::critical(this, "Error", "failed to open write file", QMessageBox::Ok);
 			//return;

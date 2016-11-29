@@ -164,9 +164,7 @@
     <ClCompile Include="mf_enumerate_cameras.cpp" />
     <ClCompile Include="release\moc_mainwindow.cpp" />
     <ClCompile Include="release\moc_videopanel.cpp" />
-    <ClCompile Include="release\moc_videosettings.cpp" />
     <ClCompile Include="videopanel.cpp" />
-    <ClCompile Include="videosettings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.ui">
@@ -192,21 +190,6 @@
   <ItemGroup>
     <ClInclude Include="ui_mainwindow.h" />
     <ClInclude Include="ui_videopanel.h" />
-    <ClInclude Include="ui_videosettings.h" />
-    <CustomBuild Include="videosettings.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QT5SDK)\include\QtCore" -I"$(QT5SDK)\include\QtGui" -I"$(QT5SDK)\include\QyWidgets" -I"$(QT5SDK)\include\QtMultimedia" -I"$(QT5SDK)\include" -I"..\..\LSL\liblsl\include" -I"..\..\LSL\liblsl\external" -I"$(BOOST_ROOT)" -I"$(QT5SDK)\include\ActiveQt" -I"release" -I"." -I$(QT5SDK)\mkspecs\default -D_MSC_VER=1500 -DWIN32 videosettings.h -o release\moc_videosettings.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC videosettings.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_videosettings.cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\moc.exe;videosettings.h</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QT5SDK)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QT5SDK)\include\QtCore" -I"$(QT5SDK)\include\QtGui" -I"$(QT5SDK)\include\QyWidgets" -I"$(QT5SDK)\include\QtMultimedia" -I"$(QT5SDK)\include" -I"..\..\LSL\liblsl\include" -I"..\..\LSL\liblsl\external" -I"$(BOOST_ROOT)" -I"$(QT5SDK)\include\ActiveQt" -I"release" -I"." -I$(QT5SDK)\mkspecs\default -D_MSC_VER=1500 -DWIN32 videosettings.h -o release\moc_videosettings.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC videosettings.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_videosettings.cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QT5SDK)\bin\moc.exe;videosettings.h</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QT5SDK)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QT5SDK)\include\QtCore" -I"$(QT5SDK)\include\QtGui" -I"$(QT5SDK)\include\QyWidgets" -I"$(QT5SDK)\include\QtMultimedia" -I"$(QT5SDK)\include" -I"..\..\LSL\liblsl\include" -I"..\..\LSL\liblsl\external" -I"$(BOOST_ROOT)" -I"$(QT5SDK)\include\ActiveQt" -I"release" -I"." -I$(QT5SDK)\mkspecs\default -D_MSC_VER=1500 -DWIN32 videosettings.h -o release\moc_videosettings.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC videosettings.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_videosettings.cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QT5SDK)\bin\moc.exe;videosettings.h</AdditionalInputs>
-    </CustomBuild>
     <CustomBuild Include="videopanel.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QT5SDK)\include\QtCore" -I"$(QT5SDK)\include\QtGui" -I"$(QT5SDK)\include\QyWidgets" -I"$(QT5SDK)\include\QtMultimedia" -I"$(QT5SDK)\include" -I"..\..\LSL\liblsl\include" -I"..\..\LSL\liblsl\external" -I"$(BOOST_ROOT)" -I"$(QT5SDK)\include\ActiveQt" -I"release" -I"." -I$(QT5SDK)\mkspecs\default -D_MSC_VER=1500 -DWIN32 videopanel.h -o release\moc_videopanel.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC videopanel.h</Message>
@@ -256,19 +239,6 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC videopanel.ui</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui_videopanel.h</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QT5SDK)\bin\uic.exe;videopanel.ui</AdditionalInputs>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="videosettings.ui">
-      <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\uic.exe videosettings.ui -o ui_videosettings.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UIC videosettings.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ui_videosettings.h</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QT5SDK)\bin\uic.exe;videosettings.ui</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QT5SDK)\bin\uic.exe videosettings.ui -o ui_videosettings.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC videosettings.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui_videosettings.h</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QT5SDK)\bin\uic.exe;videosettings.ui</AdditionalInputs>
     </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

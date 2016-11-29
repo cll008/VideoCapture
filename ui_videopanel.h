@@ -13,23 +13,24 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include "qcameraviewfinder.h"
 
 QT_BEGIN_NAMESPACE
 
 class Ui_videoPanel
 {
 public:
-    QCameraViewfinder *viewFinder;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *verticalLayout;
-    QPushButton *recordingSettingsButton;
     QPushButton *recordButton;
     QLabel *label_5;
     QLineEdit *requestedFR;
@@ -41,32 +42,35 @@ public:
     QLineEdit *timeStamp;
     QLabel *label_7;
     QLineEdit *resolutionEdit;
+    QGroupBox *groupBox_2;
+    QGridLayout *gridLayout_2;
+    QComboBox *videoCodecBox;
+    QComboBox *videoFramerateBox;
+    QLabel *videoFrameRateLabel;
+    QLabel *videoResolutionLabel;
+    QLabel *videoCodecLabel;
+    QComboBox *videoResolutionBox;
+    QLabel *videoFormatLabel;
+    QComboBox *videoFormatBox;
+    QWidget *layoutWidget;
+    QHBoxLayout *horizontalLayout;
+    QLineEdit *saveFileNameEdit;
+    QLabel *label;
 
     void setupUi(QWidget *videoPanel)
     {
         if (videoPanel->objectName().isEmpty())
             videoPanel->setObjectName(QStringLiteral("videoPanel"));
-        videoPanel->resize(731, 444);
-        viewFinder = new QCameraViewfinder(videoPanel);
-        viewFinder->setObjectName(QStringLiteral("viewFinder"));
-        viewFinder->setEnabled(true);
-        viewFinder->setGeometry(QRect(230, 10, 491, 421));
-        viewFinder->setAutoFillBackground(true);
+        videoPanel->resize(622, 306);
         verticalLayoutWidget = new QWidget(videoPanel);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
         verticalLayoutWidget->setGeometry(QRect(10, 10, 211, 279));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        recordingSettingsButton = new QPushButton(verticalLayoutWidget);
-        recordingSettingsButton->setObjectName(QStringLiteral("recordingSettingsButton"));
-        recordingSettingsButton->setEnabled(true);
-
-        verticalLayout->addWidget(recordingSettingsButton);
-
         recordButton = new QPushButton(verticalLayoutWidget);
         recordButton->setObjectName(QStringLiteral("recordButton"));
-        recordButton->setEnabled(false);
+        recordButton->setEnabled(true);
 
         verticalLayout->addWidget(recordButton);
 
@@ -129,6 +133,68 @@ public:
 
         verticalLayout->addWidget(resolutionEdit);
 
+        groupBox_2 = new QGroupBox(videoPanel);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        groupBox_2->setGeometry(QRect(240, 10, 368, 230));
+        gridLayout_2 = new QGridLayout(groupBox_2);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        videoCodecBox = new QComboBox(groupBox_2);
+        videoCodecBox->setObjectName(QStringLiteral("videoCodecBox"));
+
+        gridLayout_2->addWidget(videoCodecBox, 7, 0, 1, 2);
+
+        videoFramerateBox = new QComboBox(groupBox_2);
+        videoFramerateBox->setObjectName(QStringLiteral("videoFramerateBox"));
+
+        gridLayout_2->addWidget(videoFramerateBox, 3, 0, 1, 2);
+
+        videoFrameRateLabel = new QLabel(groupBox_2);
+        videoFrameRateLabel->setObjectName(QStringLiteral("videoFrameRateLabel"));
+
+        gridLayout_2->addWidget(videoFrameRateLabel, 2, 0, 1, 2);
+
+        videoResolutionLabel = new QLabel(groupBox_2);
+        videoResolutionLabel->setObjectName(QStringLiteral("videoResolutionLabel"));
+
+        gridLayout_2->addWidget(videoResolutionLabel, 0, 0, 1, 2);
+
+        videoCodecLabel = new QLabel(groupBox_2);
+        videoCodecLabel->setObjectName(QStringLiteral("videoCodecLabel"));
+
+        gridLayout_2->addWidget(videoCodecLabel, 6, 0, 1, 2);
+
+        videoResolutionBox = new QComboBox(groupBox_2);
+        videoResolutionBox->setObjectName(QStringLiteral("videoResolutionBox"));
+
+        gridLayout_2->addWidget(videoResolutionBox, 1, 0, 1, 2);
+
+        videoFormatLabel = new QLabel(groupBox_2);
+        videoFormatLabel->setObjectName(QStringLiteral("videoFormatLabel"));
+        videoFormatLabel->setEnabled(false);
+
+        gridLayout_2->addWidget(videoFormatLabel, 4, 0, 1, 1);
+
+        videoFormatBox = new QComboBox(groupBox_2);
+        videoFormatBox->setObjectName(QStringLiteral("videoFormatBox"));
+        videoFormatBox->setEnabled(false);
+
+        gridLayout_2->addWidget(videoFormatBox, 5, 0, 1, 2);
+
+        layoutWidget = new QWidget(videoPanel);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(250, 260, 351, 25));
+        horizontalLayout = new QHBoxLayout(layoutWidget);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        saveFileNameEdit = new QLineEdit(layoutWidget);
+        saveFileNameEdit->setObjectName(QStringLiteral("saveFileNameEdit"));
+
+        horizontalLayout->addWidget(saveFileNameEdit);
+
+        label = new QLabel(videoPanel);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(250, 240, 931, 20));
 
         retranslateUi(videoPanel);
 
@@ -138,13 +204,20 @@ public:
     void retranslateUi(QWidget *videoPanel)
     {
         videoPanel->setWindowTitle(QApplication::translate("videoPanel", "Form", 0));
-        recordingSettingsButton->setText(QApplication::translate("videoPanel", "Recording Settings", 0));
-        recordButton->setText(QApplication::translate("videoPanel", "Select video settings first", 0));
+        recordButton->setText(QApplication::translate("videoPanel", "Record", 0));
         label_5->setText(QApplication::translate("videoPanel", "Requested Frame Rate", 0));
+        requestedFR->setText(QString());
         label_4->setText(QApplication::translate("videoPanel", "Actual Frame Rate", 0));
         label_3->setText(QApplication::translate("videoPanel", "Frame Count", 0));
         label_2->setText(QApplication::translate("videoPanel", "Timestamp", 0));
         label_7->setText(QApplication::translate("videoPanel", "Resolution", 0));
+        groupBox_2->setTitle(QApplication::translate("videoPanel", "Video Settings", 0));
+        videoFrameRateLabel->setText(QApplication::translate("videoPanel", "Framerate:", 0));
+        videoResolutionLabel->setText(QApplication::translate("videoPanel", "Resolution:", 0));
+        videoCodecLabel->setText(QApplication::translate("videoPanel", "Video Codec:", 0));
+        videoFormatLabel->setText(QApplication::translate("videoPanel", "Video  Format (windows only):", 0));
+        saveFileNameEdit->setText(QApplication::translate("videoPanel", "videoCapture.avi", 0));
+        label->setText(QApplication::translate("videoPanel", "Save File Name:", 0));
     } // retranslateUi
 
 };

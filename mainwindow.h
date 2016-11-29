@@ -8,7 +8,6 @@
 #endif
 
 #include "videopanel.h"
-#include "mf_enumerate_cameras.h"
 
 // Qt
 #include <QtWidgets\QMainWindow>

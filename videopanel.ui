@@ -6,29 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>731</width>
-    <height>444</height>
+    <width>622</width>
+    <height>306</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QCameraViewfinder" name="viewFinder" native="true">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>230</x>
-     <y>10</y>
-     <width>491</width>
-     <height>421</height>
-    </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
@@ -40,22 +24,12 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QPushButton" name="recordingSettingsButton">
+     <widget class="QPushButton" name="recordButton">
       <property name="enabled">
        <bool>true</bool>
       </property>
       <property name="text">
-       <string>Recording Settings</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="recordButton">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="text">
-       <string>Select video settings first</string>
+       <string>Record</string>
       </property>
      </widget>
     </item>
@@ -70,6 +44,9 @@
      <widget class="QLineEdit" name="requestedFR">
       <property name="enabled">
        <bool>true</bool>
+      </property>
+      <property name="text">
+       <string/>
       </property>
       <property name="readOnly">
        <bool>true</bool>
@@ -143,15 +120,104 @@
     </item>
    </layout>
   </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>10</y>
+     <width>368</width>
+     <height>230</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Video Settings</string>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="7" column="0" colspan="2">
+     <widget class="QComboBox" name="videoCodecBox"/>
+    </item>
+    <item row="3" column="0" colspan="2">
+     <widget class="QComboBox" name="videoFramerateBox"/>
+    </item>
+    <item row="2" column="0" colspan="2">
+     <widget class="QLabel" name="videoFrameRateLabel">
+      <property name="text">
+       <string>Framerate:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="2">
+     <widget class="QLabel" name="videoResolutionLabel">
+      <property name="text">
+       <string>Resolution:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0" colspan="2">
+     <widget class="QLabel" name="videoCodecLabel">
+      <property name="text">
+       <string>Video Codec:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="2">
+     <widget class="QComboBox" name="videoResolutionBox"/>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="videoFormatLabel">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>Video  Format (windows only):</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0" colspan="2">
+     <widget class="QComboBox" name="videoFormatBox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>260</y>
+     <width>351</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="spacing">
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QLineEdit" name="saveFileNameEdit">
+      <property name="text">
+       <string>videoCapture.avi</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>240</y>
+     <width>931</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Save File Name:</string>
+   </property>
+  </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QCameraViewfinder</class>
-   <extends>QWidget</extends>
-   <header>qcameraviewfinder.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

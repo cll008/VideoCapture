@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "mf_enumerate_cameras.h"
 #include <Objbase.h>
 #include <iostream>
 
@@ -16,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	std::vector<std::string> camera_names;
 	WmfEnumerateCameras wmf_obj;
-
+	
 	// will print the names of all available cameras to the console and store them in the vector:
 	wmf_obj.getCameraNames(camera_names);
 

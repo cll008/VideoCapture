@@ -56,7 +56,6 @@ public:
 
 private slots:
 	void closeEvent(QCloseEvent *ev);
-	void configureVideoSettings(void);
 	void record(void);
 
 private:
@@ -71,7 +70,7 @@ private:
     QAudioEncoderSettings audioSettings;
    // QVideoEncoderSettings videoSettings;
   	QString videoContainerFormat;
-    bool isCapturingVideo;
+	bool isCapturingVideo;
 
 	std::vector<t_frame_data> frame_buf_;                   // new and improved frame buffer
 	boost::shared_ptr<boost::thread> r_thread_;             // thread for reading frames

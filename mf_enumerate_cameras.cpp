@@ -98,14 +98,14 @@ HRESULT WmfEnumerateCameras::EnumerateCaptureFormats(IMFMediaSource *pSource, st
 		// get available resolutions
 		//ss.clear();
 		hr = MFGetAttributeSize(pType, MF_MT_FRAME_SIZE, &width, &height);
-		std::cout << "width " << width << "   height " << height << std::endl;
+		// std::cout << "width " << width << "   height " << height << std::endl;
 		//ss << width << "x" << height;
 		//resVec.push_back(ss.str());
 
 		// get available framerates
 		//ss.clear();
 		hr = MFGetAttributeRatio(pType, MF_MT_FRAME_RATE, &frameRate, &denominator);
-		std::cout << "frameRate " << frameRate << "   denominator " << denominator << std::endl;
+		// std::cout << "frameRate " << frameRate << "   denominator " << denominator << std::endl;
 		//ss << (float)frameRate / (float)denominator;
 		//frameRateVec.push_back(ss.str());
 
@@ -149,6 +149,7 @@ HRESULT WmfEnumerateCameras::SelectDevice(std::string deviceName, std::vector<wm
 	std::wstring *ws;
 	std::string *s; 
 	IMFMediaSource *pSource=NULL;
+
 	HRESULT hr = init_hr_IMFAttributes();
 
 	for (int i = 0; i < m_cDevices; i++) {

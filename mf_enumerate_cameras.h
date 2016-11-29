@@ -27,6 +27,7 @@ struct wmfCameraInfo {
 
 };
 
+
 class WmfEnumerateCameras {
 
 
