@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'videopanel.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.0
+** Created by: Qt User Interface Compiler version 5.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -203,21 +203,21 @@ public:
 
     void retranslateUi(QWidget *videoPanel)
     {
-        videoPanel->setWindowTitle(QApplication::translate("videoPanel", "Form", 0));
-        recordButton->setText(QApplication::translate("videoPanel", "Record", 0));
-        label_5->setText(QApplication::translate("videoPanel", "Requested Frame Rate", 0));
+        videoPanel->setWindowTitle(QApplication::translate("videoPanel", "Form", Q_NULLPTR));
+        recordButton->setText(QApplication::translate("videoPanel", "Record", Q_NULLPTR));
+        label_5->setText(QApplication::translate("videoPanel", "Requested Frame Rate", Q_NULLPTR));
         requestedFR->setText(QString());
-        label_4->setText(QApplication::translate("videoPanel", "Actual Frame Rate", 0));
-        label_3->setText(QApplication::translate("videoPanel", "Frame Count", 0));
-        label_2->setText(QApplication::translate("videoPanel", "Timestamp", 0));
-        label_7->setText(QApplication::translate("videoPanel", "Resolution", 0));
-        groupBox_2->setTitle(QApplication::translate("videoPanel", "Video Settings", 0));
-        videoFrameRateLabel->setText(QApplication::translate("videoPanel", "Framerate:", 0));
-        videoResolutionLabel->setText(QApplication::translate("videoPanel", "Resolution:", 0));
-        videoCodecLabel->setText(QApplication::translate("videoPanel", "Video Codec:", 0));
-        videoFormatLabel->setText(QApplication::translate("videoPanel", "Video  Format (windows only):", 0));
-        saveFileNameEdit->setText(QApplication::translate("videoPanel", "videoCapture.avi", 0));
-        label->setText(QApplication::translate("videoPanel", "Save File Name:", 0));
+        label_4->setText(QApplication::translate("videoPanel", "Actual Frame Rate", Q_NULLPTR));
+        label_3->setText(QApplication::translate("videoPanel", "Frame Count", Q_NULLPTR));
+        label_2->setText(QApplication::translate("videoPanel", "Timestamp", Q_NULLPTR));
+        label_7->setText(QApplication::translate("videoPanel", "Resolution", Q_NULLPTR));
+        groupBox_2->setTitle(QApplication::translate("videoPanel", "Video Settings", Q_NULLPTR));
+        videoFrameRateLabel->setText(QApplication::translate("videoPanel", "Framerate:", Q_NULLPTR));
+        videoResolutionLabel->setText(QApplication::translate("videoPanel", "Resolution:", Q_NULLPTR));
+        videoCodecLabel->setText(QApplication::translate("videoPanel", "Video Codec:", Q_NULLPTR));
+        videoFormatLabel->setText(QApplication::translate("videoPanel", "Video  Format (windows only):", Q_NULLPTR));
+        saveFileNameEdit->setText(QApplication::translate("videoPanel", "videoCapture.avi", Q_NULLPTR));
+        label->setText(QApplication::translate("videoPanel", "Save File Name:", Q_NULLPTR));
     } // retranslateUi
 
 };

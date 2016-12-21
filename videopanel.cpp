@@ -43,7 +43,6 @@ VideoPanel::VideoPanel(QString& cameraName, QWidget *parent) :
 
 #endif
 
-	//
 	// signals and slots here
 	QObject::connect(ui->recordButton, SIGNAL(clicked()), this, SLOT(record()));
 }
@@ -65,18 +64,19 @@ void VideoPanel::record() {
 	if (ui->recordButton->text() == QString::fromStdString("Record")) {
 
 		try{
-			ui->recordButton->setText("Recording... press to stop");
+			ui->recordButton->setText("Recording... Press to Stop.");
 			ui->videoFormatLabel->setEnabled(false);
 			ui->videoFormatBox->setEnabled(false);
 			ui->saveFileNameEdit->setEnabled(false);
 
 			int vidFormatIdx = ui->videoFormatBox->currentIndex();
-			int frameWidth  = camera_infos[vidFormatIdx].width;
-			int frameHeight = camera_infos[vidFormatIdx].height;
-				
+			int frameWidth   = camera_infos[vidFormatIdx].width;
+			int frameHeight  = camera_infos[vidFormatIdx].height;
+			fps_			 = camera_infos[vidFormatIdx].frameRate;
+
 			
 			ui->resolutionEdit->setText(QString("%1x%2").arg(frameWidth).arg(frameHeight));
-			ui->requestedFR->setText(QString("Hardcoded at 30fps currently"));
+			ui->requestedFR   ->setText(QString("%1").arg(fps_));
 
 			reader.open(0);
 
@@ -87,11 +87,9 @@ void VideoPanel::record() {
 				
 				reader.set(CV_CAP_PROP_FRAME_WIDTH , frameWidth);
 				reader.set(CV_CAP_PROP_FRAME_HEIGHT, frameHeight);
-				//reader.set(CV_CAP_PROP_FPS, fps_);
+				//reader.set(CV_CAP_PROP_FPS, fps_); //returns 0; opencv fps has to be calculated
 				
 				video_size_ = cv::Size(frameWidth, frameHeight);
-				fps_ = camera_infos[vidFormatIdx].frameRate;
-
 				has_camera_ = true;
 
 			}
@@ -112,7 +110,7 @@ void VideoPanel::record() {
 		}
 
 		catch (std::exception &e) {
-			QMessageBox::critical(this, "Error", (std::string("Could not start recording: ") += e.what()).c_str(), QMessageBox::Ok);
+			QMessageBox::critical(this, "Error", (std::string("Could not start preview: ") += e.what()).c_str(), QMessageBox::Ok);
 			return;
 		}
 	}
@@ -120,7 +118,6 @@ void VideoPanel::record() {
 
 	else {
 		try {
-			// winCapture->finishCapture();
 			r_stop_ = true;
 			w_stop_ = true;
 			ui->recordButton->setText("Record");
@@ -129,7 +126,7 @@ void VideoPanel::record() {
 			ui->saveFileNameEdit->setEnabled(true);
 		}
 		catch (std::exception &e) {
-			QMessageBox::critical(this, "Error", (std::string("Could not stop recording: ") += e.what()).c_str(), QMessageBox::Ok);
+			QMessageBox::critical(this, "Error", (std::string("Could not stop: ") += e.what()).c_str(), QMessageBox::Ok);
 			return;
 		}
 	}
@@ -138,26 +135,13 @@ void VideoPanel::record() {
 
 void VideoPanel::read_thread(void) {
 
-	if (reader.isOpened()) {
-
-		//fps_ = reader.get(CV_CAP_PROP_FPS); //opencv webcam fps has to be manually calculated
-		if (fps_ == 0)fps_ = 30; 
-		has_camera_ = true;
-
-	}
-	else { return; } // needs more informative error checking
-
-					 // frame counter
 	int cnt = 1;
-
-	// lsl boilerplate
 	lsl::stream_info   info("VideoCaptureRead", "Video", 1, fps_, lsl::cf_int32, boost::asio::ip::host_name());
 	lsl::stream_outlet outlet(info);
 
 	try {
 
-		while (!r_stop_) {
-
+		while (!r_stop_) {		
 			double time_now = lsl::local_clock();
 
 			cv::Mat frame;
@@ -186,10 +170,13 @@ void VideoPanel::read_thread(void) {
 			// push lsl counter
 			outlet.push_sample(&cnt, time_now);
 			cnt++;
-
+	
 			cv::imshow("VideoCapture", frame);
-			ui->actualFR->setText(QString::number(fps_));
+			//ui->actualFR->setText(QString::number(fps_));
+			ui->actualFR  ->setText(QString("Check Effective FR from LSL xdf"));
+			ui->timeStamp ->setText(QString::number(time_now));
 			ui->frameCount->setText(QString::number(cnt));
+
 
 
 			// display the frame?
@@ -200,7 +187,7 @@ void VideoPanel::read_thread(void) {
 		}
 	}
 	catch (std::exception &e) {
-		QMessageBox::critical(this, "Error", (std::string("Error reading from camera 0: ") += e.what()).c_str(), QMessageBox::Ok);
+		QMessageBox::critical(this, "Error", (std::string("Error reading from camera: ") += e.what()).c_str(), QMessageBox::Ok);
 		return;
 	}
 

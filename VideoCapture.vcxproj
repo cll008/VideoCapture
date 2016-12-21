@@ -39,10 +39,10 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -94,7 +94,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(QT5SDK)\lib;$(BOOST_ROOT)\lib32-msvc-12.0;$(OPENCV_DIR)\build\x86\vc12\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(QT5SDK)\lib;$(BOOST_ROOT)\lib;$(OPENCV)\build\x86\vc12\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(QT5SDK)\lib\Qt5Core.lib;$(QT5SDK)\lib\Qt5Gui.lib;$(QT5SDK)\lib\Qt5Widgets.lib;$(QT5SDK)\lib\Qt5Multimedia.lib;$(QT5SDK)\lib\Qt5MultimediaWidgets.lib;opencv_core249.lib;opencv_highgui249.lib;mfplat.lib;mf.lib;mfreadwrite.lib;mfuuid.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -115,7 +115,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(QT5SDK)\lib;$(BOOST_ROOT)\lib32-msvc-12.0;$(OPENCV_DIR)\build\x86\vc12\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(QT5SDK)\lib;$(BOOST_ROOT)\lib;$(OPENCV)\build\x86\vc12\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(QT5SDK)\lib\Qt5Core.lib;$(QT5SDK)\lib\Qt5Gui.lib;$(QT5SDK)\lib\Qt5Widgets.lib;$(QT5SDK)\lib\Qt5Multimedia.lib;$(QT5SDK)\lib\Qt5MultimediaWidgets.lib;opencv_core249.lib;opencv_highgui249.lib;mfplat.lib;mf.lib;mfreadwrite.lib;mfuuid.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -239,6 +239,7 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC videopanel.ui</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui_videopanel.h</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QT5SDK)\bin\uic.exe;videopanel.ui</AdditionalInputs>
+      <SubType>Designer</SubType>
     </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
