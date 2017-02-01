@@ -136,9 +136,9 @@ void VideoPanel::record() {
 void VideoPanel::read_thread(void) {
 
 	int cnt = 1;
-	lsl::stream_info   info("VideoCaptureRead", "Video", 1, fps_, lsl::cf_int32, boost::asio::ip::host_name());
-	lsl::stream_outlet outlet(info);
-
+	lsl::stream_info	info("VideoCaptureRead", "VideoStream_", 1, fps_, lsl::cf_int32, boost::asio::ip::host_name());
+	lsl::stream_outlet  outlet(info);
+	
 	try {
 
 		while (!r_stop_) {		
